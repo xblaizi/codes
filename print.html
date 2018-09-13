@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script language="javascript" src="LodopFuncs.js"></script>
+</head>
+<style>
+.printonly{
+	display:none
+}
+#content{
+	width: 185px;
+	height: 108px;
+	text-align: center;
+}
+img{
+	width: 100%;
+}
+
+/**
+.printonly{
+	display:none
+}
+不能写到这里，会导致打印时printonly的内容也不显示
+*/
+</style>
+ 
+<body>
+
+<div id="content">
+	<!--<div id="title">
+		支付宝
+	</div>-->
+	<img src="codes.png" width="100%"/>
+</div> 
+<input onClick="prn_print()" value="点击打印" type="button">
+</body>
+
+<script language="javascript" type="text/javascript"> 
+    var LODOP;//声明为全局变量 
+    console.log(111)
+	function prn_print(){
+		CreateOneFormPage();
+		LODOP.PREVIEW();
+	};
+	function CreateOneFormPage(){
+		LODOP=getLodop();
+		LODOP.SET_PRINT_STYLE("FontSize",11);//打印区域的字体大小
+		LODOP.SET_PRINT_PAGESIZE(0,490,211,"");//打印区域的整体尺寸
+		LODOP.ADD_PRINT_TEXT(5,70,157,25,"安徽电信");
+		LODOP.SET_PRINT_STYLEA(2,"FontName","隶书");
+		LODOP.SET_PRINT_STYLEA(2,"FontSize",11);
+		LODOP.SET_PRINT_STYLEA(2,"FontColor",0);	
+		LODOP.ADD_PRINT_BARCODE(25,42,130,47,"128Auto","15278888888");
+
+//		LODOP.ADD_PRINT_HTM(0,0,490,211,document.getElementById("content").innerHTML);
+	};
+	document.getElementById()
+</script>
+</html>

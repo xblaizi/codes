@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<SCRIPT type=text/javascript src="jquery.min.js"></SCRIPT>
+	<SCRIPT type=text/javascript src="qrcode.js"></SCRIPT>
+	<style type="text/css">
+		div{
+			margin-top:20px;
+		}
+	</style>
+	
+	<title>二维码</title>
+</head>
+<body>
+	<div>
+		<div>内容：<input type="text" id ="qr_content" />
+			<button onclick="createQrCode()">生成二维码</button>	
+		</div>
+		<div id="qrcode"></div>
+		<div>
+			<!-- 构建一个用于下载的空的a标签 -->
+		<a id="downloadLink"></a> 
+		<button id ="to_img" onclick="toImg()" style="display:none;">生成图片</button>
+		</div>
+		
+	</div>	
+</body>
+<script>
+	
+	function createQrCode(qrContent){
+		//清除旧的二维码
+		$('#qrcode').html("");
+		//获取二维码内容
+		var qrContent = document.getElementById("qr_content").value;
+		// qrcode.js
+		var qrcode = new QRCode(document.getElementById("qrcode"), { 
+			render : "canvas",//设置渲染方式 
+			text: qrContent,
+			width: 128, //生成的二维码的宽度
+			height: 128, //生成的二维码的高度
+			typeNumber : -1, //计算模式  
+			correctLevel : QRCode.CorrectLevel.H, //纠错等级  
+			background : "#ffffff", //背景颜色  
+			foreground : "#000000" //前景颜色 
+		});
+		//显示“生成图片”按钮
+		$("#to_img").attr("style","display:block;");
+	};
+	//js
+	function toImg (){
+		// 获取base64的图片节点
+		var img = document.getElementById('qrcode').getElementsByTagName('img')[0];
+		// 构建画布
+		var canvas = document.createElement('canvas');
+		canvas.width = img.width;
+		canvas.height = img.height;
+		canvas.getContext('2d').drawImage(img, 0, 0);
+		// 构造url
+		url = canvas.toDataURL('/image/png');
+		// 构造a标签并模拟点击
+		var downloadLink = document.getElementById('downloadLink');
+		downloadLink.setAttribute('href', url);
+		downloadLink.setAttribute('download', 'qrCode.png');
+		downloadLink.click();
+		
+	 }
+	
+		
+		
+	</script>
+</html>
